@@ -519,3 +519,14 @@ function res = mergeStructs(x,y,Pref)
         res = y;
     end
 end
+
+% readxml reads arbitrary XML
+%!test 
+%! f = tempname();
+%! fid = fopen(f, 'w');
+%! fwrite(fid, '<root><name>test</name><value>42</value></root>');
+%! fclose(fid);
+%! r = readxml(f);
+%! assert(strcmp(r.name, 'test'));
+%! assert(r.value == 42);
+%! unlink(f);
