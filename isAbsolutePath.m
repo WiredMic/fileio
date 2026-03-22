@@ -6,3 +6,8 @@ function resp = isAbsolutePath(pth)
         resp = jvFile.isAbsolute();
     end
 end
+
+%!test
+%! assert(isAbsolutePath(tempdir()));
+%!test
+%! assert(!isAbsolutePath('relative/path.xml'));
