@@ -15,3 +15,13 @@ function val = jsonread(fname)
     fclose(fid);
 end
 
+% jsonread reads arbitrary JSON
+%!test 
+%! f = tempname();
+%! fid = fopen(f, 'w');
+%! fwrite(fid, '{"name":"test","value":42}');
+%! fclose(fid);
+%! r = jsonread(f);
+%! assert(strcmp(r.name, 'test'));
+%! assert(r.value == 42);
+%! unlink(f);
