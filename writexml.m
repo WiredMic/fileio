@@ -386,3 +386,28 @@ function str = varName2str(str)
     str = regexprep(str,'_COLON_',':', 'once', 'ignorecase');
     str = regexprep(str,'_DASH_' ,'-', 'once', 'ignorecase');
 end
+
+% xmlwrite/xmlread round-trip
+%!test
+%! s.name = 'test';
+%! s.value = 42;
+%! f = tempname();
+%! writexml(f, s);
+%! r = readxml(f);
+%! assert(strcmp(r.name, 'test'));
+%! assert(r.value == 42);
+%! unlink(f);
+
+% readxml can find files by bare filename on the search path
+%!test
+%! t.greeting = 'hello';
+%! d = tempname();
+%! mkdir(d);
+%! f = fullfile(d, 'test_readxml.xml');
+%! writexml(f, t, 'root');
+%! addpath(d);
+%! x = readxml('test_readxml.xml');
+%! rmpath(d);
+%! unlink(f);
+%! rmdir(d);
+%! assert(strcmp(x.greeting, 'hello'));
