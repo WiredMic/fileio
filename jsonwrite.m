@@ -29,3 +29,30 @@ function jsonwrite(fname,val)
     fclose(fid);
 end
 
+
+% jsonwrite/jsonread round-trip
+%!test
+%! s.name = 'test';
+%! s.value = 42;
+%! f = tempname();
+%! jsonwrite(f, s);
+%! r = jsonread(f);
+%! assert(strcmp(r.name, 'test'));
+%! assert(r.value == 42);
+%! unlink(f);
+
+
+% jsonread can find files by bare filename on the search path
+%!test
+%! t.greeting = 'hello';
+%! d = tempname();
+%! mkdir(d);
+%! f = fullfile(d, 'test_jsonread.json');
+%! jsonwrite(f, t);
+%! addpath(d);
+%! x = jsonread('test_jsonread.json');
+%! rmpath(d);
+%! unlink(f);
+%! rmdir(d);
+%! assert(strcmp(x.greeting, 'hello'));
+  

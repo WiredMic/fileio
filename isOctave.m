@@ -12,3 +12,7 @@ function resp = isOctave()
     end
     resp = testOctave;
 end
+
+% Can isOctave() recognize it is running in an Octave env 
+%!test
+%! assert(islogical(isOctave()));
